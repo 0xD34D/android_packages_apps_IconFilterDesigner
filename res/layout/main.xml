@@ -30,13 +30,16 @@
         android:id="@+id/icon_pager"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:layout_marginBottom="4dp"/>
+        android:paddingTop="4dp"
+        android:background="#eee"/>
 
     <com.scheffsblend.iconfilters.viewpagerindicator.CirclePageIndicator
         android:id="@+id/pager_indicator"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:background="#eee"
         app:fillColor="#ff7000"/>
 
     <ImageButton
