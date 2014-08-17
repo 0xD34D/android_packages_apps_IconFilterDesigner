@@ -15,6 +15,25 @@
      limitations under the License.
 -->
 <resources>
+
+    <style name="FilterDesignerTheme" parent="@android:style/Theme.Holo.Light.DarkActionBar">
+        <item name="android:actionBarStyle">@style/FilterDesignerActionBar</item>
+    </style>
+
+    <style name="FilterDesignerActionBar"
+        parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
+        <item name="android:background">@drawable/action_bar_bg</item>
+        <item name="android:titleTextStyle">@style/FilterDesignerActionBarText</item>
+    </style>
+
+    <style name="FilterDesignerActionBarText"
+        parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
+        <item name="android:fontFamily">sans-serif-condensed</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:capitalize">characters</item>
+    </style>
+
     <style name="filter_label">
         <item name="android:textAllCaps">true</item>
         <item name="android:textStyle">bold</item>
