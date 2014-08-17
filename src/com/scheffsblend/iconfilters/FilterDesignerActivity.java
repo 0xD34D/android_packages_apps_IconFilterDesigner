@@ -29,6 +29,7 @@ import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
@@ -211,13 +212,13 @@ public class FilterDesignerActivity extends Activity {
         public IconPagerAdapter(Context context) {
             mContext = context;
             mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
             mPm = context.getPackageManager();
-            Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
-            mainIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+            new FetchResolveInfosTask(context, this).execute();
+        }
 
-            mAppList = mPm.queryIntentActivities(mainIntent, 0);
-            Collections.sort(mAppList, new ResolveInfo.DisplayNameComparator(mPm));
+        public void setAppList(List<ResolveInfo> list) {
+            mAppList = list;
+            notifyDataSetChanged();
         }
 
         public void setColorMatrix(ColorMatrix cm) {
@@ -275,6 +276,35 @@ public class FilterDesignerActivity extends Activity {
         public void destroyItem(ViewGroup container, int position, Object object) {
             if (object instanceof View) {
                 container.removeView((View) object);
+            }
+        }
+    }
+
+    class FetchResolveInfosTask extends AsyncTask {
+        private Context mContext;
+        private List<ResolveInfo> mAppList;
+        private IconPagerAdapter mIconAdapter;
+
+        public FetchResolveInfosTask(Context context, IconPagerAdapter adapter) {
+            mContext = context;
+            this.mIconAdapter = adapter;
+        }
+
+        @Override
+        protected Object doInBackground(Object[] objects) {
+            PackageManager pm = mContext.getPackageManager();
+            Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
+            mainIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+
+            mAppList = pm.queryIntentActivities(mainIntent, 0);
+            Collections.sort(mAppList, new ResolveInfo.DisplayNameComparator(pm));
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Object o) {
+            if (mAppList != null && mAppList.size() > 0) {
+                this.mIconAdapter.setAppList(mAppList);
             }
         }
     }
