@@ -74,7 +74,7 @@ public class ColorFilterUtils {
     }
 
     public static ColorMatrix adjustBrightness(float brightness) {
-        brightness = Math.min(Math.max(brightness / 100, 0), 1);
+        brightness = brightness / 100;
         ColorMatrix cm = new ColorMatrix();
         cm.setScale(brightness, brightness, brightness, 1);
 
