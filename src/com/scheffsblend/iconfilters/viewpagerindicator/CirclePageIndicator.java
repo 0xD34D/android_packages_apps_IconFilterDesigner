@@ -27,11 +27,11 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v4.view.ViewConfigurationCompat;
-import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
+import au.com.glassechidna.velocityviewpager.VelocityViewPager;
 import com.scheffsblend.iconfilters.R;
 
 import static android.graphics.Paint.ANTI_ALIAS_FLAG;
@@ -49,8 +49,8 @@ public class CirclePageIndicator extends View implements PageIndicator {
     private final Paint mPaintPageFill = new Paint(ANTI_ALIAS_FLAG);
     private final Paint mPaintStroke = new Paint(ANTI_ALIAS_FLAG);
     private final Paint mPaintFill = new Paint(ANTI_ALIAS_FLAG);
-    private ViewPager mViewPager;
-    private ViewPager.OnPageChangeListener mListener;
+    private VelocityViewPager mViewPager;
+    private VelocityViewPager.OnPageChangeListener mListener;
     private int mCurrentPage;
     private int mSnapPage;
     private float mPageOffset;
@@ -365,7 +365,7 @@ public class CirclePageIndicator extends View implements PageIndicator {
     }
 
     @Override
-    public void setViewPager(ViewPager view) {
+    public void setViewPager(VelocityViewPager view) {
         if (mViewPager == view) {
             return;
         }
@@ -381,7 +381,7 @@ public class CirclePageIndicator extends View implements PageIndicator {
     }
 
     @Override
-    public void setViewPager(ViewPager view, int initialPosition) {
+    public void setViewPager(VelocityViewPager view, int initialPosition) {
         setViewPager(view);
         setCurrentItem(initialPosition);
     }
@@ -423,7 +423,7 @@ public class CirclePageIndicator extends View implements PageIndicator {
 
     @Override
     public void onPageSelected(int position) {
-        if (mSnap || mScrollState == ViewPager.SCROLL_STATE_IDLE) {
+        if (mSnap || mScrollState == VelocityViewPager.SCROLL_STATE_IDLE) {
             mCurrentPage = position;
             mSnapPage = position;
             invalidate();
@@ -435,7 +435,7 @@ public class CirclePageIndicator extends View implements PageIndicator {
     }
 
     @Override
-    public void setOnPageChangeListener(ViewPager.OnPageChangeListener listener) {
+    public void setOnPageChangeListener(VelocityViewPager.OnPageChangeListener listener) {
         mListener = listener;
     }
 

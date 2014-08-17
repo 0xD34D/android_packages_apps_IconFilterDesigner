@@ -29,7 +29,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -39,6 +38,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import au.com.glassechidna.velocityviewpager.VelocityViewPager;
 import com.scheffsblend.iconfilters.viewpagerindicator.CirclePageIndicator;
 
 import java.util.ArrayList;
@@ -63,7 +63,7 @@ public class FilterDesignerActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        ViewPager pager = (ViewPager) findViewById(R.id.icon_pager);
+        VelocityViewPager pager = (VelocityViewPager) findViewById(R.id.icon_pager);
         mIconAdapter = new IconPagerAdapter(this);
         pager.setAdapter(mIconAdapter);
         mIconAdapter.notifyDataSetChanged();
