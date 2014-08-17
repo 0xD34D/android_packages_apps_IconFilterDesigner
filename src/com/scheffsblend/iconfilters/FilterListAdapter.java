@@ -365,6 +365,10 @@ class FilterListAdapter extends BaseAdapter {
         public void onClick(View view) {
             FilterItem f = (FilterItem) view.getTag();
             if (f != null) mFilterItems.remove(f);
+            mIdMap.clear();
+            for (int i = 0; i < mFilterItems.size(); i++) {
+                mIdMap.put(mFilterItems.get(i), i);
+            }
             notifyDataSetChanged();
         }
     };
