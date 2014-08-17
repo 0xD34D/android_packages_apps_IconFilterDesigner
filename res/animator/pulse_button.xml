@@ -4,11 +4,13 @@
     android:ordering="sequentially">
     <set>
         <objectAnimator
+            android:interpolator="@android:anim/accelerate_decelerate_interpolator"
             android:propertyName="scaleX"
             android:duration="300"
             android:valueTo="1.25"
             android:valueType="floatType"/>
         <objectAnimator
+            android:interpolator="@android:anim/accelerate_decelerate_interpolator"
             android:propertyName="scaleY"
             android:duration="300"
             android:valueTo="1.25"
@@ -17,11 +19,13 @@
 
     <set>
         <objectAnimator
+            android:interpolator="@android:anim/accelerate_decelerate_interpolator"
             android:propertyName="scaleX"
             android:duration="300"
             android:valueTo="1.0"
             android:valueType="floatType"/>
         <objectAnimator
+            android:interpolator="@android:anim/accelerate_decelerate_interpolator"
             android:propertyName="scaleY"
             android:duration="300"
             android:valueTo="1.0"
@@ -30,11 +34,13 @@
 
     <set>
         <objectAnimator
+            android:interpolator="@android:anim/accelerate_decelerate_interpolator"
             android:propertyName="scaleX"
             android:duration="300"
             android:valueTo="1.25"
             android:valueType="floatType"/>
         <objectAnimator
+            android:interpolator="@android:anim/accelerate_decelerate_interpolator"
             android:propertyName="scaleY"
             android:duration="300"
             android:valueTo="1.25"
@@ -43,11 +49,13 @@
 
     <set>
         <objectAnimator
+            android:interpolator="@android:anim/accelerate_decelerate_interpolator"
             android:propertyName="scaleX"
             android:duration="300"
             android:valueTo="1.0"
             android:valueType="floatType"/>
         <objectAnimator
+            android:interpolator="@android:anim/accelerate_decelerate_interpolator"
             android:propertyName="scaleY"
             android:duration="300"
             android:valueTo="1.0"
