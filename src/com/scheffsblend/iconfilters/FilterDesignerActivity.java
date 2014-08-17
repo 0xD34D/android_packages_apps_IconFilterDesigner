@@ -31,6 +31,9 @@ import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -38,10 +41,19 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import com.scheffsblend.iconfilters.viewpagerindicator.CirclePageIndicator;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class FilterDesignerActivity extends Activity {
+    private static final String TAG_FILTER = "filter";
+    private static final String FILTER_HUE = "hue";
+    private static final String FILTER_SATURATION = "saturation";
+    private static final String FILTER_INVERT = "invert";
+    private static final String FILTER_BRIGHTNESS = "brightness";
+    private static final String FILTER_CONTRAST = "contrast";
+    private static final String FILTER_ALPHA = "alpha";
+    private static final String FILTER_TINT = "tint";
 
     private IconPagerAdapter mIconAdapter;
     private FilterListAdapter mFilterAdapter;
@@ -90,8 +102,77 @@ public class FilterDesignerActivity extends Activity {
         indicator.setViewPager(pager);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.show_xml:
+                showXml();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     public void updateColorFilter(ColorMatrix cm) {
         if (mIconAdapter != null) mIconAdapter.setColorMatrix(cm);
+    }
+
+    private void showXml() {
+        ArrayList<FilterListAdapter.FilterItem> filters = mFilterAdapter.getFilterList();
+        StringBuilder sb = new StringBuilder();
+        String name = null;
+        String value = null;
+        for (FilterListAdapter.FilterItem item : filters) {
+            switch (item.filterType) {
+                case FilterListAdapter.FILTER_TYPE_HUE:
+                    name = FILTER_HUE;
+                    value = "" + ((FilterListAdapter.AdjustableFilter) item).current;
+                    break;
+                case FilterListAdapter.FILTER_TYPE_SATURATION:
+                    name = FILTER_SATURATION;
+                    value = "" + ((FilterListAdapter.AdjustableFilter) item).current;
+                    break;
+                case FilterListAdapter.FILTER_TYPE_BRIGHTNESS:
+                    name = FILTER_BRIGHTNESS;
+                    value = "" + ((FilterListAdapter.AdjustableFilter) item).current;
+                    break;
+                case FilterListAdapter.FILTER_TYPE_CONTRAST:
+                    name = FILTER_CONTRAST;
+                    value = "" + ((FilterListAdapter.AdjustableFilter) item).current;
+                    break;
+                case FilterListAdapter.FILTER_TYPE_ALPHA:
+                    name = FILTER_ALPHA;
+                    value = "" + ((FilterListAdapter.AdjustableFilter) item).current;
+                    break;
+                case FilterListAdapter.FILTER_TYPE_INVERT:
+                    name = FILTER_INVERT;
+                    value = ((FilterListAdapter.ToggleableFilter) item).enabled ? "true" : "false";
+                    break;
+                case FilterListAdapter.FILTER_TYPE_TINT:
+                    name = FILTER_TINT;
+                    value = String.format("#%08x", ((FilterListAdapter.ValueFilter) item).value);
+                    break;
+            }
+            sb.append(String.format("<%s name=\"%s\">%s</%s>\r\n",
+                    TAG_FILTER, name, value, TAG_FILTER));
+        }
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.dialog_show_xml_title);
+        builder.setMessage(sb.toString());
+        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        builder.create().show();
     }
 
     private class IconPagerAdapter extends PagerAdapter {

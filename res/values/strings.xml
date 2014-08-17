@@ -31,4 +31,7 @@
     <string name="filter_picker_title">Pick a filter to add</string>
 
     <string name="color_picker_dialog_title">Pick your color</string>
+    <string name="menu_item_view_xml_title">View XML</string>
+
+    <string name="dialog_show_xml_title">Filters XML</string>
 </resources>
