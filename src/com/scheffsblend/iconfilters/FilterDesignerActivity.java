@@ -15,6 +15,8 @@
  */
 package com.scheffsblend.iconfilters;
 
+import android.animation.AnimatorInflater;
+import android.animation.AnimatorSet;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ComponentName;
@@ -55,8 +57,12 @@ public class FilterDesignerActivity extends Activity {
     private static final String FILTER_ALPHA = "alpha";
     private static final String FILTER_TINT = "tint";
 
+    private static final long PULSE_ADD_BUTTON_INITIAL_DELAY = 3000;
+    private static final long PULSE_ADD_BUTTON_DELAY = 5000;
+
     private IconPagerAdapter mIconAdapter;
     private FilterListAdapter mFilterAdapter;
+    private ImageButton mAddFilterButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -74,10 +80,11 @@ public class FilterDesignerActivity extends Activity {
         listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         listView.setFilterList(mFilterAdapter.getFilterList());
 
-        ImageButton addFilterButton = (ImageButton) findViewById(R.id.add_filter);
-        addFilterButton.setOnClickListener(new View.OnClickListener() {
+        mAddFilterButton = (ImageButton) findViewById(R.id.add_filter);
+        mAddFilterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mAddFilterButton.removeCallbacks(mPulseAddButtonRunnable);
                 String[] items = getResources().getStringArray(R.array.filters);
                 AlertDialog.Builder b = new AlertDialog.Builder(FilterDesignerActivity.this);
                 b.setTitle(R.string.filter_picker_title);
@@ -97,6 +104,7 @@ public class FilterDesignerActivity extends Activity {
                 b.create().show();
             }
         });
+        mAddFilterButton.postDelayed(mPulseAddButtonRunnable, PULSE_ADD_BUTTON_INITIAL_DELAY);
 
         CirclePageIndicator indicator = (CirclePageIndicator) findViewById(R.id.pager_indicator);
         indicator.setViewPager(pager);
@@ -123,6 +131,18 @@ public class FilterDesignerActivity extends Activity {
     public void updateColorFilter(ColorMatrix cm) {
         if (mIconAdapter != null) mIconAdapter.setColorMatrix(cm);
     }
+
+    private Runnable mPulseAddButtonRunnable = new Runnable() {
+        @Override
+        public void run() {
+            AnimatorSet set = (AnimatorSet) AnimatorInflater.loadAnimator(
+                    FilterDesignerActivity.this,
+                    R.animator.pulse_button);
+            set.setTarget(mAddFilterButton);
+            set.start();
+            mAddFilterButton.postDelayed(mPulseAddButtonRunnable, PULSE_ADD_BUTTON_DELAY);
+        }
+    };
 
     private void showXml() {
         ArrayList<FilterListAdapter.FilterItem> filters = mFilterAdapter.getFilterList();
