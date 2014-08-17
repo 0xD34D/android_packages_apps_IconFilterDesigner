@@ -55,7 +55,7 @@ public class ColorFilterUtils {
     }
 
     public static ColorMatrix adjustSaturation(float saturation) {
-        saturation = Math.min(Math.max(saturation / 100, 0), 2);
+        saturation = saturation / 100;
         ColorMatrix cm = new ColorMatrix();
         cm.setSaturation(saturation);
 
@@ -95,7 +95,7 @@ public class ColorFilterUtils {
     }
 
     public static ColorMatrix adjustAlpha(float alpha) {
-        alpha = Math.min(Math.max(alpha / 100, 0), 1);
+        alpha = alpha / 100;
         ColorMatrix cm = new ColorMatrix();
         cm.setScale(1, 1, 1, alpha);
 
