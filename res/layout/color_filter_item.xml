@@ -32,11 +32,21 @@
             android:layout_height="wrap_content"
             style="@style/filter_label" />
 
-        <View
-            android:id="@+id/color"
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="10dp"/>
+            android:layout_margin="10dp">
+
+            <View
+                android:id="@+id/color"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/tint_color_border"/>
+        </FrameLayout>
 
     </LinearLayout>
 
