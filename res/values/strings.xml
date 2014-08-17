@@ -34,4 +34,6 @@
     <string name="menu_item_view_xml_title">View XML</string>
 
     <string name="dialog_show_xml_title">Filters XML</string>
+    <string name="dialog_show_xml_empty_title">Nothing to see here</string>
+    <string name="dialog_show_xml_empty">You need to create some filters first.</string>
 </resources>

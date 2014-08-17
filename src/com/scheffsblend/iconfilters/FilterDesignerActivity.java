@@ -163,8 +163,12 @@ public class FilterDesignerActivity extends Activity {
             sb.append(String.format("<%s name=\"%s\">%s</%s>\r\n",
                     TAG_FILTER, name, value, TAG_FILTER));
         }
+        if (filters.size() == 0) {
+            sb.append(getString(R.string.dialog_show_xml_empty));
+        }
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(R.string.dialog_show_xml_title);
+        builder.setTitle(filters.size() > 0 ? R.string.dialog_show_xml_title :
+                R.string.dialog_show_xml_empty_title);
         builder.setMessage(sb.toString());
         builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
             @Override
